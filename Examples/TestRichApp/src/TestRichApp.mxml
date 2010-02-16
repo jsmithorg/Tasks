@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" applicationComplete="onApplicationComplete();">
+	
+	<mx:Script>
+		<![CDATA[
+			import org.jsmith.test.*;
+			
+			[Embed(source="../resources/locale.xml",mimeType="application/octet-stream")]
+			public var locale:Class;
+			
+			public function get myLocale():XML
+			{
+				return new XML(new locale());
+			
+			}
+			
+			private function onApplicationComplete():void
+			{
+				//mytext.text = "XML :" + new locale();
+			
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<!--<mx:XML id="locale" source="../resources/locale.xml" />-->
+	
+	<mx:Style source="../styles/default.css" />
+
+	<mx:Label text="Hello Rich World" />
+	<mx:Label top="60" text="{TestClass.testMethod()}" />
+	<mx:TextArea id="mytext" text="{VersionInfo.version}" />
+	<mx:List dataProvider="{myLocale}" left="400" />
+	
+</mx:Application>

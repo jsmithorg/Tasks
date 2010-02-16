@@ -2,6 +2,9 @@
 *.suo
 /Tasks/obj
 /Tasks/bin
+/Examples/TestRichLibrary/bin
+/Examples/TestRichLibrary2/bin
+/Examples/TestRichApp/bin-debug
 /Unit Tests/JSmith.MSBuild.Tasks.Tests/bin
 /Unit Tests/JSmith.MSBuild.Tasks.Tests/obj
 /Unit Tests/JSmith.MSBuild.Tasks.Flex.Tests/bin

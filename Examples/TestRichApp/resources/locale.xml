@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locale-resource-dictionary>
+	<locale culture="en-US">
+		<resource key="MyHeadline" value="This is a headline" />
+	</locale>
+</locale-resource-dictionary>
