@@ -29,7 +29,8 @@
 
 	<mx:Label text="Hello Rich World" />
 	<mx:Label top="60" text="{TestClass.testMethod()}" />
-	<mx:TextArea id="mytext" text="{VersionInfo.version}" />
+  <mx:Label top="100" text="{TestClass2.testMethod()}" />
+	<mx:TextArea id="mytext" text="{Version}" />
 	<mx:List dataProvider="{myLocale}" left="400" />
 	
 </mx:Application>

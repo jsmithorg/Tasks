@@ -13,8 +13,36 @@ namespace JSmith.MSBuild.Tasks.Flex
         #region Constants
 
         public const string DefaultToolPath = @"C:\FlexSDK\3.3.0\bin";
-        public const string DefaultOutput = @"Output.swf";
+        public const string DefaultOutput = "Output.swf";
+        public const string TempDirectory = "_temp";
+        public const string VersionInfoFile = "Version.as";
+        public const string VersionASClass =
+@"/**
+*   This file is machine-generated. Changes to this file may be overwritten.
+*/
+package 
+{
+	public class Version
+	{
+        private static const defaultFormat:String = ""{0}.{1}.{2}.{3}"";
+		public static const major:int = {major};
+		public static const minor:int = {minor};
+		public static const build:int = {build};
+		public static const revision:int = {revision};
+		
+        public static function toString(format:String = null):String
+        {
+            format = (format == null) ? defaultFormat : format;
+            
+            return format.replace(""{0}"", major).replace(""{1}"", minor).replace(""{2}"", build).replace(""{3}"", revision);
+            //return major + ""."" + minor + ""."" + build + ""."" + revision;
 
+        }//end method
+
+	}//end class
+	
+}//end namespace
+";
         #endregion
 
         #region Fields / Properties
@@ -92,6 +120,7 @@ namespace JSmith.MSBuild.Tasks.Flex
         public ITaskItem VerifyDigests { get; set; }
         public ITaskItem WarnWarningType { get; set; }
         public ITaskItem Warnings { get; set; }
+        public ITaskItem Version { get; set; }
 
         /* Font settings not yet included */
 
@@ -99,6 +128,16 @@ namespace JSmith.MSBuild.Tasks.Flex
         #endregion
 
         #region Overrides
+
+        public override bool Execute()
+        {
+            bool isSuccess = base.Execute();
+           
+            DestroyVersionInfo();
+
+            return isSuccess;
+
+        }//end method
 
         protected override string GetWorkingDirectory()
         {
@@ -124,6 +163,9 @@ namespace JSmith.MSBuild.Tasks.Flex
         protected override string GenerateCommandLineCommands()
         {
             CommandLineBuilder clb = new CommandLineBuilder();
+
+            if (Version != null)
+                CreateVersionInfo();
 
             clb.AppendSwitchIfNotNull("-accessible=", Accessible);
             clb.AppendSwitchIfNotNull("-actionscript-file-encoding ", ActionScriptFileEncoding);
@@ -157,7 +199,11 @@ namespace JSmith.MSBuild.Tasks.Flex
             clb.AppendSwitchIfNotNull("-keep-as3-metadata=", KeepAS3Metadata);
             clb.AppendSwitchIfNotNull("-keep-all-type-selectors=", KeepAllTypeSelectors);
             clb.AppendSwitchIfNotNull("-keep-generated-actionscript=", KeepGeneratedActionscript);
-            clb.AppendSwitchIfNotNull("-library-path+=", LibraryPath, " ");
+
+            if (LibraryPath != null)
+                for (int i = 0; i < LibraryPath.Length; i++)
+                    clb.AppendSwitchIfNotNull("-library-path+=", LibraryPath[i]);
+
             clb.AppendSwitchIfNotNull("-license ", License);
             clb.AppendSwitchIfNotNull("-link-report ", LinkReport);
             clb.AppendSwitchIfNotNull("-load-config ", LoadConfig);
@@ -183,6 +229,9 @@ namespace JSmith.MSBuild.Tasks.Flex
                 for (int i = 0; i < SourcePath.Length; i++)
                     clb.AppendSwitchIfNotNull("-source-path ", SourcePath[i]);
 
+            if (Version != null)
+                clb.AppendSwitchIfNotNull("-source-path ", TempDirectory);
+
             clb.AppendSwitchIfNotNull("-static-link-runtime-shared-libraries=", StaticLinkRuntimeSharedLibraries);
             clb.AppendSwitchIfNotNull("-strict=", Strict);
             clb.AppendSwitchIfNotNull("-target-player=", TargetPlayer);
@@ -195,7 +244,7 @@ namespace JSmith.MSBuild.Tasks.Flex
             clb.AppendSwitchIfNotNull("-warnings=", Warnings);
 
             clb.AppendSwitchIfNotNull("-file-specs ", EntryPoint);
-
+           
             Console.WriteLine("Command Line command: " + Environment.NewLine + clb);
 
             return clb.ToString();
@@ -231,6 +280,28 @@ namespace JSmith.MSBuild.Tasks.Flex
         #endregion
 
         #endregion
+
+        private void CreateVersionInfo()
+        {
+            string[] version = Version.ItemSpec.Split('.');
+            string asClass = VersionASClass.Replace("{major}", version[0])
+                                           .Replace("{minor}", version[1])
+                                           .Replace("{build}", version[2])
+                                           .Replace("{revision}", version[3]);
+
+            Console.WriteLine("version info: " + WorkingDirectory + "\\" + TempDirectory);
+            Directory.CreateDirectory(WorkingDirectory + "\\" + TempDirectory);
+            using (FileStream fs = File.Create(WorkingDirectory + "\\" + TempDirectory + "\\" + VersionInfoFile))
+                fs.Write((new ASCIIEncoding()).GetBytes(asClass), 0, asClass.Length);
+
+        }//end method
+
+        private void DestroyVersionInfo()
+        {
+            File.Delete(WorkingDirectory + "\\" + TempDirectory + "\\" + VersionInfoFile);
+            Directory.Delete(WorkingDirectory + "\\" + TempDirectory, true);
+
+        }//end method
 
     }//end class
 

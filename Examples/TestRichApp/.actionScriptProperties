@@ -23,7 +23,7 @@
     
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="resources"/>
-      <compilerSourcePathEntry kind="1" linkType="1" path="properties"/>
+      <!--<compilerSourcePathEntry kind="1" linkType="1" path="properties"/>-->
     </compilerSourcePath>
     
     <libraryPath defaultLinkType="1">

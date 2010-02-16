@@ -2,7 +2,7 @@ package
 {
 	public class TestClass2
 	{
-		public function testMethod():String
+		public static function testMethod():String
 		{
 			return "this is a test";
 			

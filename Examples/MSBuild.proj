@@ -14,17 +14,19 @@
     <FlexComponentCompiler ToolPath="C:\FlexSDK\3.5.0\bin" ComputeDigest="true" Directory="false" Output="TestRichLibrary\bin\Test.swc" IncludeClasses="@(Classes)" SourcePath="TestRichLibrary\src" />
     -->
 
-    <FlexCompiler ToolPath="C:\FlexSDK\3.5.0\bin" SourcePath="TestRichApp\src;TestRichApp\properties;TestRichApp\styles" EntryPoint="TestRichApp\src\TestRichApp.mxml" LibraryPath="TestRichLibrary/bin/TestRichLibrary.swc" />
-    
     <!--
     <ItemGroup>
-      <Libraries Include="**\.project" />
+      <Libraries Include="**\.project" Exclude="TestRichApp\*" />
     </ItemGroup>
 
     <Message Text="Projects: @(Libraries)" />
     <FlexLibraryProject Project="%(Libraries.Identity)" />
     -->
-    
+
+    <!--<FlexCompiler ToolPath="C:\FlexSDK\3.5.0\bin" Version="1.2.302.4112" Output="TestRichApp\bin\TestRichApp.swf" SourcePath="TestRichApp\src;TestRichApp\styles" EntryPoint="TestRichApp\src\TestRichApp.mxml" LibraryPath="TestRichLibrary/bin/TestRichLibrary.swc;TestRichLibrary2/bin/TestRichLibrary2.swc" />-->
+
+    <FlexCompiler ToolPath="C:\FlexSDK\3.5.0\bin" WorkingDirectory="TestRichApp" Version="1.2.123.2334" Output="bin\TestRichApp.swf" SourcePath="src;styles" EntryPoint="src\TestRichApp.mxml" LibraryPath="../TestRichLibrary/bin/TestRichLibrary.swc;../TestRichLibrary2/bin/TestRichLibrary2.swc" />
+
   </Target>
   
 </Project>
