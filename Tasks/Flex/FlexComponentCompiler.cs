@@ -10,10 +10,13 @@ namespace JSmith.MSBuild.Tasks.Flex
 {
     public class FlexComponentCompiler : ToolTask
     {
+        public const string DefaultToolPath = @"C:\FlexSDK\3.3.0\bin";
+
         public string WorkingDirectory { get; set; }
 
         public ITaskItem ComputeDigest { get; set; }
         public ITaskItem Directory { get; set; }
+        public ITaskItem SourcePath { get; set; }
         public ITaskItem[] IncludeClasses { get; set; }
         public ITaskItem[] IncludeFile { get; set; }
         public ITaskItem IncludeLookupOnly { get; set; }
@@ -44,7 +47,8 @@ namespace JSmith.MSBuild.Tasks.Flex
 
         protected override string GenerateFullPathToTool()
         {
-            ToolPath = @"C:\FlexSDK\3.3.0\bin";
+            if (ToolPath == null)
+                ToolPath = DefaultToolPath;
 
             return Path.Combine(ToolPath, ToolName);
 
@@ -53,21 +57,20 @@ namespace JSmith.MSBuild.Tasks.Flex
         protected override string GenerateCommandLineCommands()
         {
             CommandLineBuilder clb = new CommandLineBuilder();
-            clb.AppendSwitchIfNotNull("-compute-digest", ComputeDigest);
-            clb.AppendSwitchIfNotNull("-directory", Directory);
-            clb.AppendSwitchIfNotNull("-include-classes", IncludeClasses, " ");
-            clb.AppendSwitchIfNotNull("-include-file", IncludeFile, " ");
-            clb.AppendSwitchIfNotNull("-include-lookup-only", IncludeLookupOnly);
-            clb.AppendSwitchIfNotNull("-include-namespaces", IncludeNamespaces, " ");
-            clb.AppendSwitchIfNotNull("-include-sources", IncludeSources);
-            clb.AppendSwitchIfNotNull("-include-stylesheet", IncludeStylesheet, " ");
-            clb.AppendSwitchIfNotNull("-output", Output);
+            clb.AppendSwitchIfNotNull("-source-path ", SourcePath);
+            clb.AppendSwitchIfNotNull("-compute-digest=", ComputeDigest);
+            clb.AppendSwitchIfNotNull("-directory=", Directory);
+            clb.AppendSwitchIfNotNull("-include-classes ", IncludeClasses, " ");
+            clb.AppendSwitchIfNotNull("-include-file ", IncludeFile, " ");
+            clb.AppendSwitchIfNotNull("-include-lookup-only=", IncludeLookupOnly);
+            clb.AppendSwitchIfNotNull("-include-namespaces ", IncludeNamespaces, " ");
+            clb.AppendSwitchIfNotNull("-include-sources ", IncludeSources);
+            clb.AppendSwitchIfNotNull("-include-stylesheet ", IncludeStylesheet, " ");
+            clb.AppendSwitchIfNotNull("-output ", Output);
             
-            Console.WriteLine("Command Line command: " + Environment.NewLine + clb);
+            //Console.WriteLine("Command Line command: " + Environment.NewLine + clb);
 
             return clb.ToString();
-
-            //return base.GenerateCommandLineCommands();
 
         }//end method
 

@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSmith.MSBuild.Tasks.Flex.Tests", "Unit Tests\JSmith.MSBuild.Tasks.Flex.Tests\JSmith.MSBuild.Tasks.Flex.Tests.csproj", "{0AE6DFB8-2EE8-4545-9AAD-FFF5376429CB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{666B2C47-09DD-4ABD-BC06-BA287D0C9534}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\MSBuild.proj = Examples\MSBuild.proj
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
