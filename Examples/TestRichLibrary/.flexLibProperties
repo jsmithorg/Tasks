@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="org.jsmith.test.TestClass"/>
+  </includeClasses>
+  <includeResources>
+    <resourceEntry destPath="azure.png" sourcePath="azure.png"/>
+  </includeResources>
+  <namespaceManifests/>
+</flexLibProperties>
