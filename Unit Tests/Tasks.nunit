@@ -1,0 +1,11 @@
+﻿<NUnitProject>
+  <Settings activeconfig="Debug" />
+  <Config name="Debug" binpathtype="Auto">
+    <assembly path="JSmith.MSBuild.Tasks.Flex.Tests\bin\Debug\JSmith.MSBuild.Tasks.Flex.Tests.dll" />
+    <assembly path="JSmith.MSBuild.Tasks.Git.Tests\bin\Debug\JSmith.MSBuild.Tasks.Tests.dll" />
+  </Config>
+  <Config name="Release" binpathtype="Auto">
+    <assembly path="JSmith.MSBuild.Tasks.Flex.Tests\bin\Release\JSmith.MSBuild.Tasks.Flex.Tests.dll" />
+    <assembly path="JSmith.MSBuild.Tasks.Git.Tests\bin\Release\JSmith.MSBuild.Tasks.Tests.dll" />
+  </Config>
+</NUnitProject>

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1A2C0571-131F-47F3-9AFA-F56BB17C260E}</ProjectGuid>
+    <ProjectGuid>{0AE6DFB8-2EE8-4545-9AAD-FFF5376429CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JSmith.MSBuild.Tasks</RootNamespace>
-    <AssemblyName>JSmith.MSBuild.Tasks</AssemblyName>
+    <RootNamespace>JSmith.MSBuild.Tasks.Flex.Tests</RootNamespace>
+    <AssemblyName>JSmith.MSBuild.Tasks.Flex.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Utilities" />
+    <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -47,16 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Flex\ASDoc.cs" />
-    <Compile Include="Flex\FlexComponentCompiler.cs" />
-    <Compile Include="Flex\FlexCompiler.cs" />
-    <Compile Include="Flex\FlexProject.cs" />
-    <Compile Include="Flex\ActionScriptProject.cs" />
-    <Compile Include="Flex\FlexLibraryProject.cs" />
-    <Compile Include="Git\GitClient.cs" />
-    <Compile Include="Git\GitInfo.cs" />
-    <Compile Include="Git\GitRevision.cs" />
+    <Compile Include="FlexComponentCompilerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Tasks\JSmith.MSBuild.Tasks.csproj">
+      <Project>{1A2C0571-131F-47F3-9AFA-F56BB17C260E}</Project>
+      <Name>JSmith.MSBuild.Tasks</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

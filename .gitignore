@@ -4,3 +4,7 @@
 /Tasks/bin
 /Unit Tests/JSmith.MSBuild.Tasks.Tests/bin
 /Unit Tests/JSmith.MSBuild.Tasks.Tests/obj
+/Unit Tests/JSmith.MSBuild.Tasks.Flex.Tests/bin
+/Unit Tests/JSmith.MSBuild.Tasks.Flex.Tests/obj
+/Unit Tests/JSmith.MSBuild.Tasks.Git.Tests/bin
+/Unit Tests/JSmith.MSBuild.Tasks.Git.Tests/obj
