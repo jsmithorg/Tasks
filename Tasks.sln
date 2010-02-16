@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSmith.MSBuild.Tasks", "Tasks\JSmith.MSBuild.Tasks.csproj", "{1A2C0571-131F-47F3-9AFA-F56BB17C260E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{4E9D1E63-88AB-4969-8AD7-839CF45EE642}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSmith.MSBuild.Tasks.Tests", "Unit Tests\JSmith.MSBuild.Tasks.Tests\JSmith.MSBuild.Tasks.Tests.csproj", "{B7D8C046-62DD-4A7D-B61C-CC7DF2F077AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A2C0571-131F-47F3-9AFA-F56BB17C260E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A2C0571-131F-47F3-9AFA-F56BB17C260E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A2C0571-131F-47F3-9AFA-F56BB17C260E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A2C0571-131F-47F3-9AFA-F56BB17C260E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7D8C046-62DD-4A7D-B61C-CC7DF2F077AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D8C046-62DD-4A7D-B61C-CC7DF2F077AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D8C046-62DD-4A7D-B61C-CC7DF2F077AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D8C046-62DD-4A7D-B61C-CC7DF2F077AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7D8C046-62DD-4A7D-B61C-CC7DF2F077AD} = {4E9D1E63-88AB-4969-8AD7-839CF45EE642}
+	EndGlobalSection
+EndGlobal

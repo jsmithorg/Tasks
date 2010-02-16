@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\Administrator\Documents\GLG\Projects\Tasks\Unit Tests\Tasks.nunit" total="1" errors="1" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2009-11-04" time="22:36:49">
+  <environment nunit-version="2.5.2.9222" clr-version="2.0.50727.3074" os-version="Microsoft Windows NT 6.0.6001 Service Pack 1" platform="Win32NT" cwd="C:\Program Files\NUnit 2.5.2\bin\net-2.0" machine-name="JUSTINSMITH3282" user="Administrator" user-domain="JUSTINSMITH3282" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite name="C:\Users\Administrator\Documents\GLG\Projects\Tasks\Unit Tests\Tasks.nunit" executed="True" success="False" time="0.203" asserts="0">
+    <results>
+      <test-suite name="C:\Users\Administrator\Documents\GLG\Projects\Tasks\Unit Tests\JSmith.MSBuild.Tasks.Tests\bin\Debug\JSmith.MSBuild.Tasks.Tests.dll" executed="True" success="False" time="0.203" asserts="0">
+        <results>
+          <test-suite name="JSmith" executed="True" success="False" time="0.203" asserts="0">
+            <results>
+              <test-suite name="MSBuild" executed="True" success="False" time="0.203" asserts="0">
+                <results>
+                  <test-suite name="Tasks" executed="True" success="False" time="0.203" asserts="0">
+                    <results>
+                      <test-suite name="Tests" executed="True" success="False" time="0.203" asserts="0">
+                        <results>
+                          <test-suite name="GitInfoTest" executed="True" success="False" time="0.203" asserts="0">
+                            <results>
+                              <test-case name="JSmith.MSBuild.Tasks.Tests.GitInfoTest.TestInstantiate" executed="True" success="False" time="0.172" asserts="0">
+                                <failure>
+                                  <message><![CDATA[System.InvalidOperationException : Task attempted to log before it was initialized. Message was: Invalid command line switch for "git.exe". Value cannot be null.
+Parameter name: path1]]></message>
+                                  <stack-trace><![CDATA[at Microsoft.Build.Shared.ErrorUtilities.ThrowInvalidOperation(String resourceName, Object[] args)
+at Microsoft.Build.Shared.ErrorUtilities.VerifyThrowInvalidOperation(Boolean condition, String resourceName, Object arg0)
+at Microsoft.Build.Utilities.TaskLoggingHelper.LogError(String subcategory, String errorCode, String helpKeyword, String file, Int32 lineNumber, Int32 columnNumber, Int32 endLineNumber, Int32 endColumnNumber, String message, Object[] messageArgs)
+at Microsoft.Build.Utilities.TaskLoggingHelper.LogErrorWithCodeFromResources(String subcategoryResourceName, String file, Int32 lineNumber, Int32 columnNumber, Int32 endLineNumber, Int32 endColumnNumber, String messageResourceName, Object[] messageArgs)
+at Microsoft.Build.Utilities.TaskLoggingHelper.LogErrorWithCodeFromResources(String messageResourceName, Object[] messageArgs)
+at Microsoft.Build.Utilities.ToolTask.Execute()
+at JSmith.MSBuild.Tasks.Tests.GitInfoTest.TestInstantiate() in C:\Users\Administrator\Documents\GLG\Projects\Tasks\Unit Tests\JSmith.MSBuild.Tasks.Tests\GitInfoTest.cs:line 19
+]]></stack-trace>
+                                </failure>
+                              </test-case>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
