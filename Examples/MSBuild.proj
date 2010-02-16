@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Flex" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexCompiler" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexComponentCompiler" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexLibraryProject" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
 
@@ -13,12 +14,16 @@
     <FlexComponentCompiler ToolPath="C:\FlexSDK\3.5.0\bin" ComputeDigest="true" Directory="false" Output="TestRichLibrary\bin\Test.swc" IncludeClasses="@(Classes)" SourcePath="TestRichLibrary\src" />
     -->
 
+    <FlexCompiler ToolPath="C:\FlexSDK\3.5.0\bin" SourcePath="TestRichApp\src;TestRichApp\properties;TestRichApp\styles" EntryPoint="TestRichApp\src\TestRichApp.mxml" LibraryPath="TestRichLibrary/bin/TestRichLibrary.swc" />
+    
+    <!--
     <ItemGroup>
       <Libraries Include="**\.project" />
     </ItemGroup>
 
     <Message Text="Projects: @(Libraries)" />
     <FlexLibraryProject Project="%(Libraries.Identity)" />
+    -->
     
   </Target>
   

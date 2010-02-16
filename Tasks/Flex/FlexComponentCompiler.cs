@@ -10,7 +10,13 @@ namespace JSmith.MSBuild.Tasks.Flex
 {
     public class FlexComponentCompiler : ToolTask
     {
+        #region Constants
+
         public const string DefaultToolPath = @"C:\FlexSDK\3.3.0\bin";
+
+        #endregion
+
+        #region Fields / Properties
 
         public string WorkingDirectory { get; set; }
 
@@ -25,13 +31,9 @@ namespace JSmith.MSBuild.Tasks.Flex
         public ITaskItem[] IncludeStylesheet { get; set; }
         public ITaskItem Output { get; set; }
 
-        public override bool Execute()
-        {
-            bool isSuccess = base.Execute();
+        #endregion
 
-            return isSuccess;
-
-        }//end method
+        #region Overrides
 
         protected override string GetWorkingDirectory()
         {
@@ -82,6 +84,8 @@ namespace JSmith.MSBuild.Tasks.Flex
 
         }//end method
 
+        #region Logging
+
         protected override void LogToolCommand(string message)
         {
             if (BuildEngine != null)
@@ -105,6 +109,10 @@ namespace JSmith.MSBuild.Tasks.Flex
             //outputBuffer.Append(singleLine + Environment.NewLine);
 
         }//end method
+
+        #endregion
+
+        #endregion
 
     }//end class
 
