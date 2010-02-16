@@ -2,15 +2,23 @@
 <Project ToolsVersion="3.5" DefaultTargets="Flex" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexComponentCompiler" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
+  <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexLibraryProject" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
 
   <Target Name="Flex">
 
-    <ItemGroup>
+    <!--<ItemGroup>
       <Classes Include="org.jsmith.test.TestClass" />
-      <Classes Include="TestClass2" />
     </ItemGroup>
     
-    <FlexComponentCompiler ToolPath="C:\FlexSDK\3.5.0\bin" ComputeDigest="true" Directory="false" Output="Test.swc" IncludeClasses="@(Classes)" SourcePath="src" />
+    <FlexComponentCompiler ToolPath="C:\FlexSDK\3.5.0\bin" ComputeDigest="true" Directory="false" Output="TestRichLibrary\bin\Test.swc" IncludeClasses="@(Classes)" SourcePath="TestRichLibrary\src" />
+    -->
+
+    <ItemGroup>
+      <Libraries Include="**\.project" />
+    </ItemGroup>
+
+    <Message Text="Projects: @(Libraries)" />
+    <FlexLibraryProject Project="%(Libraries.Identity)" />
     
   </Target>
   

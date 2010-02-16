@@ -16,7 +16,7 @@ namespace JSmith.MSBuild.Tasks.Flex
 
         public ITaskItem ComputeDigest { get; set; }
         public ITaskItem Directory { get; set; }
-        public ITaskItem SourcePath { get; set; }
+        public ITaskItem[] SourcePath { get; set; }
         public ITaskItem[] IncludeClasses { get; set; }
         public ITaskItem[] IncludeFile { get; set; }
         public ITaskItem IncludeLookupOnly { get; set; }
@@ -57,18 +57,26 @@ namespace JSmith.MSBuild.Tasks.Flex
         protected override string GenerateCommandLineCommands()
         {
             CommandLineBuilder clb = new CommandLineBuilder();
-            clb.AppendSwitchIfNotNull("-source-path ", SourcePath);
+
+            if (SourcePath != null)
+                for (int i = 0; i < SourcePath.Length; i++)
+                    clb.AppendSwitchIfNotNull("-source-path ", SourcePath[i]);
+
             clb.AppendSwitchIfNotNull("-compute-digest=", ComputeDigest);
             clb.AppendSwitchIfNotNull("-directory=", Directory);
             clb.AppendSwitchIfNotNull("-include-classes ", IncludeClasses, " ");
-            clb.AppendSwitchIfNotNull("-include-file ", IncludeFile, " ");
+
+            if (IncludeFile != null)
+                for (int i = 0; i < IncludeFile.Length; i++)
+                    clb.AppendSwitchUnquotedIfNotNull("-include-file ", IncludeFile[i] + " " + IncludeFile[i]);
+
             clb.AppendSwitchIfNotNull("-include-lookup-only=", IncludeLookupOnly);
             clb.AppendSwitchIfNotNull("-include-namespaces ", IncludeNamespaces, " ");
             clb.AppendSwitchIfNotNull("-include-sources ", IncludeSources);
             clb.AppendSwitchIfNotNull("-include-stylesheet ", IncludeStylesheet, " ");
             clb.AppendSwitchIfNotNull("-output ", Output);
-            
-            //Console.WriteLine("Command Line command: " + Environment.NewLine + clb);
+
+            Console.WriteLine("Command Line command: " + Environment.NewLine + clb);
 
             return clb.ToString();
 
