@@ -2,6 +2,7 @@
 *.suo
 /Tasks/obj
 /Tasks/bin
+/Examples/TestASApp/bin-debug
 /Examples/TestRichLibrary/bin
 /Examples/TestRichLibrary2/bin
 /Examples/TestRichApp/bin-debug
