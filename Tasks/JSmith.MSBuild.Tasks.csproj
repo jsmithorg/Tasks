@@ -48,8 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Flex\ASDoc.cs" />
+    <Compile Include="Flex\FlexApplicationProject.cs" />
     <Compile Include="Flex\FlexComponentCompiler.cs" />
     <Compile Include="Flex\FlexCompiler.cs" />
+    <Compile Include="Flex\FlexConfigurationException.cs" />
     <Compile Include="Flex\FlexProject.cs" />
     <Compile Include="Flex\ActionScriptProject.cs" />
     <Compile Include="Flex\FlexLibraryProject.cs" />
