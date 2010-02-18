@@ -4,7 +4,8 @@
 	<mx:Script>
 		<![CDATA[
 			import org.jsmith.test.*;
-			
+			import com.test.*;
+      
 			[Embed(source="../resources/locale.xml",mimeType="application/octet-stream")]
 			public var locale:Class;
 			
@@ -30,6 +31,7 @@
 	<mx:Label text="Hello Rich World" />
 	<mx:Label top="60" text="{TestClass.testMethod()}" />
   <mx:Label top="100" text="{TestClass2.testMethod()}" />
+  <mx:Label top="140" text="{RichTestClass.richTestMethod()}" />
 	<mx:TextArea id="mytext" text="{Version}" />
 	<mx:List dataProvider="{myLocale}" left="400" />
 	

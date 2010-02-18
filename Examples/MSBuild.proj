@@ -34,7 +34,7 @@
     </ItemGroup>
     <FlexProject Projects="@(Projects)" Version="3.4.5.234" />
 
-    <FlexDocumentation SourcePath="TestRichLibrary/src;TestRichLibrary2/src;TestRichApp/src;TestRichApp/obj;TestASApp/src" DocSources="TestRichLibrary/src;TestRichLibrary2/src;TestRichApp/src;TestRichApp/obj;TestASApp/src" LibraryPath="TestRichLibrary/bin/TestRichLibrary.swc" Output="doc" WindowTitle="Test Docs" />
+    <FlexDocumentation SourcePath="TestRichLibrary/src;TestRichLibrary2/src;TestRichApp/src;TestRichApp/obj;TestASApp/src" DocSources="TestRichLibrary/src;TestRichLibrary2/src;TestRichApp/src;TestRichApp/obj;TestASApp/src" LibraryPath="TestRichApp/libs/MVC.swc" Output="doc" WindowTitle="Test Docs" />
     
   </Target>
   
