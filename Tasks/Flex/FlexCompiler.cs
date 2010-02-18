@@ -14,7 +14,7 @@ namespace JSmith.MSBuild.Tasks.Flex
 
         public const string DefaultToolPath = @"C:\FlexSDK\3.3.0\bin";
         public const string DefaultOutput = "Output.swf";
-        public const string TempDirectory = "_temp";
+        //public const string TempDirectory = "obj";
         public const string VersionInfoFile = "Version.as";
         public const string VersionASClass =
 @"/**
@@ -48,6 +48,7 @@ package
         #region Fields / Properties
 
         public string WorkingDirectory { get; set; }
+        public string TempDirectory { get; set; }
 
         public ITaskItem Accessible { get; set; }
         public ITaskItem ActionScriptFileEncoding { get; set; }
@@ -132,8 +133,9 @@ package
         public override bool Execute()
         {
             bool isSuccess = base.Execute();
-           
-            DestroyVersionInfo();
+
+            if (Version != null)
+                DestroyVersionInfo();
 
             return isSuccess;
 
@@ -245,7 +247,7 @@ package
 
             clb.AppendSwitchIfNotNull("-file-specs ", EntryPoint);
            
-            Console.WriteLine("Command Line command: " + Environment.NewLine + clb);
+            Console.WriteLine(GenerateFullPathToTool() + " " + clb);
 
             return clb.ToString();
 
@@ -290,16 +292,16 @@ package
                                            .Replace("{revision}", version[3]);
 
             Console.WriteLine("version info: " + WorkingDirectory + "\\" + TempDirectory);
-            Directory.CreateDirectory(WorkingDirectory + "\\" + TempDirectory);
-            using (FileStream fs = File.Create(WorkingDirectory + "\\" + TempDirectory + "\\" + VersionInfoFile))
+            Directory.CreateDirectory(TempDirectory);
+            using (FileStream fs = File.Create(TempDirectory + "\\" + VersionInfoFile))
                 fs.Write((new ASCIIEncoding()).GetBytes(asClass), 0, asClass.Length);
 
         }//end method
 
         private void DestroyVersionInfo()
         {
-            File.Delete(WorkingDirectory + "\\" + TempDirectory + "\\" + VersionInfoFile);
-            Directory.Delete(WorkingDirectory + "\\" + TempDirectory, true);
+            File.Delete(TempDirectory + "\\" + VersionInfoFile);
+            Directory.Delete(TempDirectory, true);
 
         }//end method
 
