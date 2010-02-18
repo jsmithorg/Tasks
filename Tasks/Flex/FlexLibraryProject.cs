@@ -116,6 +116,19 @@ namespace JSmith.MSBuild.Tasks.Flex
 
             Output = new TaskItem(ProjectRoot + "\\" + _outputDirectory + "\\" + _projectName + ".swc");
 
+            //libraries
+            LibraryPath = compilerNode.Elements("libraryPath").Any() &&
+                          compilerNode.Element("libraryPath").Elements("libraryPathEntry").Any() ?
+                          (from lib in compilerNode.Element("libraryPath").Elements("libraryPathEntry")
+                           where lib.Attribute("kind").Value == "3"
+                           select new TaskItem(FormatPath(lib.Attribute("path").Value))).ToArray() : null;
+
+            IncludeLibraries = compilerNode.Elements("libraryPath").Any() &&
+                               compilerNode.Element("libraryPath").Elements("libraryPathEntry").Any() ?
+                               (from lib in compilerNode.Element("libraryPath").Elements("libraryPathEntry")
+                                where lib.Attribute("kind").Value == "3" && lib.Attribute("linkType").Value == "2"
+                                select new TaskItem(FormatPath(lib.Attribute("path").Value))).ToArray() : null;
+
         }//end method
 
         private void ParseFlexLibPropertiesFile()
@@ -139,6 +152,15 @@ namespace JSmith.MSBuild.Tasks.Flex
 
         #endregion
 
+        private string FormatPath(string path)
+        {
+            if (path.StartsWith("/"))
+                return path.Substring(1);
+            else
+                return Path.Combine(ProjectRoot, path);
+
+        }//end method
+
         protected override string GenerateCommandLineCommands()
         {
             ParseProjectFile();
@@ -146,6 +168,20 @@ namespace JSmith.MSBuild.Tasks.Flex
             ParseFlexLibPropertiesFile();
 
             return base.GenerateCommandLineCommands();
+
+        }//end method
+
+        public override bool Execute()
+        {
+            Log.LogMessage("Building Flex library");
+
+            bool isSuccess = base.Execute();
+            if (isSuccess)
+                Log.LogMessage("Build succeeded");
+            else
+                Log.LogMessage("Build failed");
+
+            return isSuccess;
 
         }//end method
 

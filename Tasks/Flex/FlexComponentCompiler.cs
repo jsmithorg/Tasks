@@ -25,10 +25,12 @@ namespace JSmith.MSBuild.Tasks.Flex
         public ITaskItem[] SourcePath { get; set; }
         public ITaskItem[] IncludeClasses { get; set; }
         public ITaskItem[] IncludeFile { get; set; }
+        public ITaskItem[] IncludeLibraries { get; set; }
         public ITaskItem IncludeLookupOnly { get; set; }
         public ITaskItem[] IncludeNamespaces { get; set; }
         public ITaskItem IncludeSources { get; set; }
         public ITaskItem[] IncludeStylesheet { get; set; }
+        public ITaskItem[] LibraryPath { get; set; }
         public ITaskItem Output { get; set; }
 
         #endregion
@@ -72,13 +74,18 @@ namespace JSmith.MSBuild.Tasks.Flex
                 for (int i = 0; i < IncludeFile.Length; i++)
                     clb.AppendSwitchUnquotedIfNotNull("-include-file ", IncludeFile[i] + " " + IncludeFile[i]);
 
+            clb.AppendSwitchIfNotNull("-include-libraries ", IncludeLibraries, " ");
             clb.AppendSwitchIfNotNull("-include-lookup-only=", IncludeLookupOnly);
             clb.AppendSwitchIfNotNull("-include-namespaces ", IncludeNamespaces, " ");
             clb.AppendSwitchIfNotNull("-include-sources ", IncludeSources);
             clb.AppendSwitchIfNotNull("-include-stylesheet ", IncludeStylesheet, " ");
             clb.AppendSwitchIfNotNull("-output ", Output);
 
-            Console.WriteLine("Command Line command: " + Environment.NewLine + clb);
+            if (LibraryPath != null)
+                for (int i = 0; i < LibraryPath.Length; i++)
+                    clb.AppendSwitchIfNotNull("-library-path+=", LibraryPath[i]);
+
+            Console.WriteLine(GenerateFullPathToTool() + " " + clb);
 
             return clb.ToString();
 
@@ -92,7 +99,7 @@ namespace JSmith.MSBuild.Tasks.Flex
                 Log.LogCommandLine(MessageImportance.Low, message);
             else
                 Console.WriteLine(message);
-
+            
         }//end method
 
         protected override MessageImportance StandardOutputLoggingImportance
