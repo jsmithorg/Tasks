@@ -5,6 +5,7 @@
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexComponentCompiler" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexLibraryProject" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexProject" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
+  <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexDocumentation" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
 
   <Target Name="Flex">
 
@@ -32,6 +33,8 @@
       <Projects Include="**\.project" />
     </ItemGroup>
     <FlexProject Projects="@(Projects)" Version="3.4.5.234" />
+
+    <FlexDocumentation SourcePath="TestRichLibrary/src;TestRichLibrary2/src;TestRichApp/src;TestRichApp/obj;TestASApp/src" DocSources="TestRichLibrary/src;TestRichLibrary2/src;TestRichApp/src;TestRichApp/obj;TestASApp/src" LibraryPath="TestRichLibrary/bin/TestRichLibrary.swc" Output="doc" WindowTitle="Test Docs" />
     
   </Target>
   

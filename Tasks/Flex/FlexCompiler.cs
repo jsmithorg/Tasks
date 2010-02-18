@@ -300,8 +300,8 @@ package
 
         private void DestroyVersionInfo()
         {
-            File.Delete(TempDirectory + "\\" + VersionInfoFile);
-            Directory.Delete(TempDirectory, true);
+            //File.Delete(TempDirectory + "\\" + VersionInfoFile);
+            //Directory.Delete(TempDirectory, true);
 
         }//end method
 
