@@ -16,6 +16,7 @@ namespace JSmith.MSBuild.Tasks.Flex
         public const string ProjectFileName = @".project";
         public const string FlexPropertiesFileName = @".flexProperties";
         public const string FlexLibPropertiesFileName = @".flexLibProperties";
+        public const string ActionScriptPropertiesFileName = @".actionScriptProperties";
 
         #endregion
 
@@ -52,15 +53,15 @@ namespace JSmith.MSBuild.Tasks.Flex
 
         public override bool Execute()
         {
-            //parse all the project files
-            for (int i = 0; i < Projects.Length; i++)
-                ParseProjectFile(Projects[i].ItemSpec);
-
-            //reorder based on dependencies
-            DetermineBuildOrder();
-
             try
             {
+                //parse all the project files
+                for (int i = 0; i < Projects.Length; i++)
+                    ParseProjectFile(Projects[i].ItemSpec);
+
+                //reorder based on dependencies
+                DetermineBuildOrder();
+
                 //build each project
                 foreach (string project in _buildOrder)
                     BuildProject(_projectFiles[project]);
@@ -121,6 +122,9 @@ namespace JSmith.MSBuild.Tasks.Flex
                 //loop through the dependencies and reorder projects as necessary
                 foreach(string dependency in dependencies)
                 {
+                    if (!_projectFiles.ContainsKey(dependency))
+                        throw new FlexConfigurationException("Could not find dependency '" + dependency + "' for project '" + kvp.Key + "'.");
+
                     //string dependency = dependencies[i];
                     int index = _buildOrder.IndexOf(dependency);
 
@@ -155,10 +159,10 @@ namespace JSmith.MSBuild.Tasks.Flex
         {
             if (IsLibrary(projectFile))
                 return BuildLibraryProject(projectFile);
-            else if (IsApplication(projectFile))
-                return BuildApplicationProject(projectFile);
+            else if (IsFlexApplication(projectFile) || IsActionScriptApplication(projectFile))
+                return BuildFlexApplicationProject(projectFile);
             else
-                throw new FileNotFoundException("Could not find either a " + FlexPropertiesFileName + " or a " + FlexLibPropertiesFileName + " file.");
+                throw new FileNotFoundException("Could not find either a " + FlexPropertiesFileName + ", " + FlexLibPropertiesFileName + " or " + ActionScriptPropertiesFileName + " configuration file for project " + GetProjectRoot(projectFile));
 
         }//end method
 
@@ -172,7 +176,7 @@ namespace JSmith.MSBuild.Tasks.Flex
 
         }//end method
 
-        private bool BuildApplicationProject(string projectFile)
+        private bool BuildFlexApplicationProject(string projectFile)
         {
             FlexApplicationProject fap = new FlexApplicationProject();
             fap.BuildEngine = BuildEngine;
@@ -196,12 +200,21 @@ namespace JSmith.MSBuild.Tasks.Flex
 
         }//end method
 
-        private bool IsApplication(string projectFile)
+        private bool IsFlexApplication(string projectFile)
         {
             string projectRoot = GetProjectRoot(projectFile);
             string path = Path.Combine(projectRoot, FlexPropertiesFileName);
 
             return File.Exists(path);
+
+        }//end method
+
+        private bool IsActionScriptApplication(string projectFile)
+        {
+            string projectRoot = GetProjectRoot(projectFile);
+            string path = Path.Combine(projectRoot, ActionScriptPropertiesFileName);
+
+            return File.Exists(path) && !IsLibrary(projectFile) && !IsFlexApplication(projectFile);
 
         }//end method
 

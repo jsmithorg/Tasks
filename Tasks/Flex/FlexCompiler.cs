@@ -291,7 +291,7 @@ package
                                            .Replace("{build}", version[2])
                                            .Replace("{revision}", version[3]);
 
-            Console.WriteLine("version info: " + WorkingDirectory + "\\" + TempDirectory);
+            //Console.WriteLine("version info: " + WorkingDirectory + "\\" + TempDirectory);
             Directory.CreateDirectory(TempDirectory);
             using (FileStream fs = File.Create(TempDirectory + "\\" + VersionInfoFile))
                 fs.Write((new ASCIIEncoding()).GetBytes(asClass), 0, asClass.Length);

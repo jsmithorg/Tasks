@@ -120,7 +120,7 @@ namespace JSmith.MSBuild.Tasks.Flex
             LibraryPath = compilerNode.Elements("libraryPath").Any() &&
                           compilerNode.Element("libraryPath").Elements("libraryPathEntry").Any() ?
                           (from lib in compilerNode.Element("libraryPath").Elements("libraryPathEntry")
-                           where lib.Attribute("kind").Value == "3"
+                           where lib.Attribute("kind").Value == "3" && lib.Attribute("linkType").Value == "1"
                            select new TaskItem(FormatPath(lib.Attribute("path").Value))).ToArray() : null;
 
             IncludeLibraries = compilerNode.Elements("libraryPath").Any() &&
