@@ -4,6 +4,7 @@
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexCompiler" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexComponentCompiler" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
   <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexLibraryProject" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
+  <UsingTask TaskName="JSmith.MSBuild.Tasks.Flex.FlexProject" AssemblyFile="../Tasks/Bin/Debug/JSmith.MSBuild.Tasks.dll"/>
 
   <Target Name="Flex">
 
@@ -25,8 +26,13 @@
 
     <!--<FlexCompiler ToolPath="C:\FlexSDK\3.5.0\bin" Version="1.2.302.4112" Output="TestRichApp\bin\TestRichApp.swf" SourcePath="TestRichApp\src;TestRichApp\styles" EntryPoint="TestRichApp\src\TestRichApp.mxml" LibraryPath="TestRichLibrary/bin/TestRichLibrary.swc;TestRichLibrary2/bin/TestRichLibrary2.swc" />-->
 
-    <FlexCompiler ToolPath="C:\FlexSDK\3.5.0\bin" WorkingDirectory="TestRichApp" Version="1.2.123.2334" Output="bin\TestRichApp.swf" SourcePath="src;styles" EntryPoint="src\TestRichApp.mxml" LibraryPath="../TestRichLibrary/bin/TestRichLibrary.swc;../TestRichLibrary2/bin/TestRichLibrary2.swc" />
+    <!--<FlexCompiler ToolPath="C:\FlexSDK\3.5.0\bin" WorkingDirectory="TestRichApp" Version="1.2.123.2334" Output="bin\TestRichApp.swf" SourcePath="src;styles" EntryPoint="src\TestRichApp.mxml" LibraryPath="../TestRichLibrary/bin/TestRichLibrary.swc;../TestRichLibrary2/bin/TestRichLibrary2.swc" />-->
 
+    <ItemGroup>
+      <Projects Include="**\.project" />
+    </ItemGroup>
+    <FlexProject Projects="@(Projects)" Version="3.4.5.234" />
+    
   </Target>
   
 </Project>

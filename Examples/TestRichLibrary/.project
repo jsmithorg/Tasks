@@ -3,6 +3,7 @@
 	<name>TestRichLibrary</name>
 	<comment></comment>
 	<projects>
+    <project>TestRichLibrary2</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
