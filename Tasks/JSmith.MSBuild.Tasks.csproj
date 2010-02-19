@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Flash\FlashCompiler.cs" />
     <Compile Include="Flex\FlexApplicationProject.cs" />
     <Compile Include="Flex\FlexComponentCompiler.cs" />
     <Compile Include="Flex\FlexCompiler.cs" />
@@ -61,6 +62,10 @@
     <Compile Include="Git\GitInfo.cs" />
     <Compile Include="Git\GitRevision.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Resources\Version.as" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CompileFlash.jsfl" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

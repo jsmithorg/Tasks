@@ -38,6 +38,8 @@
         </modifiedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/MVC.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/Utils.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/TestRichLibrary/bin/TestRichLibrary.swc" useDefaultLinkType="false"/>
     </libraryPath>
     

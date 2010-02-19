@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using System.IO;
+using System.Reflection;
 
 namespace JSmith.MSBuild.Tasks.Flex
 {
@@ -16,33 +17,7 @@ namespace JSmith.MSBuild.Tasks.Flex
         public const string DefaultOutput = "Output.swf";
         //public const string TempDirectory = "obj";
         public const string VersionInfoFile = "Version.as";
-        public const string VersionASClass =
-@"/**
-*   This file is machine-generated. Changes to this file may be overwritten.
-*/
-package 
-{
-	public class Version
-	{
-        private static const defaultFormat:String = ""{0}.{1}.{2}.{3}"";
-		public static const major:int = {major};
-		public static const minor:int = {minor};
-		public static const build:int = {build};
-		public static const revision:int = {revision};
-		
-        public static function toString(format:String = null):String
-        {
-            format = (format == null) ? defaultFormat : format;
-            
-            return format.replace(""{0}"", major).replace(""{1}"", minor).replace(""{2}"", build).replace(""{3}"", revision);
-            //return major + ""."" + minor + ""."" + build + ""."" + revision;
-
-        }//end method
-
-	}//end class
-	
-}//end namespace
-";
+        
         #endregion
 
         #region Fields / Properties
@@ -285,8 +260,15 @@ package
 
         private void CreateVersionInfo()
         {
+            //get our embedded Version class file
+            Assembly a = Assembly.GetAssembly(GetType());
+            Stream s = a.GetManifestResourceStream("JSmith.MSBuild.Tasks.Resources.Version.as");
+            StreamReader sr = new StreamReader(s);
+            string asVersionClass = sr.ReadToEnd();
+
+            //string replace the version number placeholders
             string[] version = Version.ItemSpec.Split('.');
-            string asClass = VersionASClass.Replace("{major}", version[0])
+            string asClass = asVersionClass.Replace("{major}", version[0])
                                            .Replace("{minor}", version[1])
                                            .Replace("{build}", version[2])
                                            .Replace("{revision}", version[3]);

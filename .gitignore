@@ -6,9 +6,12 @@
 /Examples/TestRichLibrary/bin
 /Examples/TestRichLibrary2/bin
 /Examples/TestRichApp/bin-debug
+/Examples/TestRichApp/obj
 /Unit Tests/JSmith.MSBuild.Tasks.Tests/bin
 /Unit Tests/JSmith.MSBuild.Tasks.Tests/obj
 /Unit Tests/JSmith.MSBuild.Tasks.Flex.Tests/bin
 /Unit Tests/JSmith.MSBuild.Tasks.Flex.Tests/obj
 /Unit Tests/JSmith.MSBuild.Tasks.Git.Tests/bin
 /Unit Tests/JSmith.MSBuild.Tasks.Git.Tests/obj
+/Examples/TestASApp/obj
+/Examples/TestASApp/bin-debug
