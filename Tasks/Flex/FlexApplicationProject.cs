@@ -56,6 +56,8 @@ namespace JSmith.MSBuild.Tasks.Flex
         private string _projectName;
         private string _outputDirectory;
         private List<string> _sourceDirectories;
+        private Dictionary<string, string> _modules;
+        private Dictionary<string, bool> _optimizeModules;
 
         #endregion
 
@@ -64,6 +66,8 @@ namespace JSmith.MSBuild.Tasks.Flex
         public FlexApplicationProject()
         {
             _sourceDirectories = new List<string>();
+            _modules = new Dictionary<string, string>();
+            _optimizeModules = new Dictionary<string, bool>();
 
         }//end constructor
 
@@ -133,6 +137,18 @@ namespace JSmith.MSBuild.Tasks.Flex
                                (from lib in compilerNode.Element("libraryPath").Elements("libraryPathEntry")
                                 where lib.Attribute("kind").Value == "3" && lib.Attribute("linkType").Value == "2"
                                 select new TaskItem(FormatPath(lib.Attribute("path").Value))).ToArray() : null;
+
+            //modules
+            _modules = doc.Element("actionScriptProperties").Elements("modules").Any() &&
+                       doc.Element("actionScriptProperties").Element("modules").Elements("module").Any() ?
+                       (from module in doc.Element("actionScriptProperties").Element("modules").Elements("module")
+                        select module).ToDictionary(m => m.Attribute("sourcePath").Value, m => m.Attribute("destPath").Value) : new Dictionary<string, string>();
+
+            _optimizeModules = doc.Element("actionScriptProperties").Elements("modules").Any() &&
+                               doc.Element("actionScriptProperties").Element("modules").Elements("module").Any() ?
+                               (from module in doc.Element("actionScriptProperties").Element("modules").Elements("module")
+                                select module).ToDictionary(m => m.Attribute("sourcePath").Value, m => Boolean.Parse(m.Attribute("optimize").Value)) : new Dictionary<string, bool>();
+
         }//end method
 
         #endregion
@@ -167,11 +183,42 @@ namespace JSmith.MSBuild.Tasks.Flex
             else
                 Log.LogMessage("Build failed");
 
-            return isSuccess;
+            bool isModuleBuildSuccess = BuildModules();
+
+            return isSuccess && isModuleBuildSuccess;
 
         }//end method
 
         #endregion
+
+        private bool BuildModules()
+        {
+            bool isSuccess = true;
+
+            foreach (KeyValuePair<string, string> kvp in _modules)
+            {
+                FlexCompiler fm = new FlexCompiler();
+                fm.BuildEngine = BuildEngine;
+                fm.Version = Version;
+                fm.EntryPoint = new TaskItem(Path.Combine(ProjectRoot, kvp.Key));
+                fm.SourcePath = SourcePath;
+                fm.Output = new TaskItem(Path.Combine(ProjectRoot, _outputDirectory) + "\\" + kvp.Value);
+                fm.LibraryPath = LibraryPath;
+                fm.IncludeLibraries = IncludeLibraries;
+                fm.TempDirectory = TempDirectory;
+
+                if (_optimizeModules[kvp.Key])
+                    fm.LoadExterns = new List<ITaskItem> { new TaskItem(LinkReportPath) }.ToArray();
+
+                bool moduleSuccess = fm.Execute();
+                if (!moduleSuccess)
+                    isSuccess = false;
+
+            }//end foreach
+
+            return isSuccess;
+
+        }//end method
 
     }//end class
 

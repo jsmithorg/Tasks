@@ -182,6 +182,7 @@ namespace JSmith.MSBuild.Tasks.Flex
             fap.BuildEngine = BuildEngine;
             fap.Project = new TaskItem(projectFile);
             fap.Version = Version;
+            fap.GenerateLinkReport = true;
 
             return fap.Execute();
 

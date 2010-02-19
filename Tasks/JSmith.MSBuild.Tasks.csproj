@@ -55,9 +55,6 @@
     <Compile Include="Flex\FlexDocumentation.cs" />
     <Compile Include="Flex\FlexProject.cs" />
     <Compile Include="Flex\FlexLibraryProject.cs" />
-    <Compile Include="Flex\LinkReport.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Git\GitClient.cs" />
     <Compile Include="Git\GitInfo.cs" />
     <Compile Include="Git\GitRevision.cs" />

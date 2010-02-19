@@ -17,13 +17,28 @@ namespace JSmith.MSBuild.Tasks.Flex
         public const string DefaultOutput = "Output.swf";
         //public const string TempDirectory = "obj";
         public const string VersionInfoFile = "Version.as";
-        
+        public const string LinkReportExtension = "_linkreport.xml";
+
         #endregion
 
         #region Fields / Properties
 
+        public string LinkReportPath
+        {
+            get
+            {
+                string directory = Path.GetDirectoryName(Output.ItemSpec);
+                string fileName = Path.GetFileNameWithoutExtension(Output.ItemSpec) + LinkReportExtension;
+                
+                return Path.Combine(directory, fileName);
+
+            }//end get
+
+        }//end property
+
         public string WorkingDirectory { get; set; }
         public string TempDirectory { get; set; }
+        public bool GenerateLinkReport { get; set; }
 
         public ITaskItem Accessible { get; set; }
         public ITaskItem ActionScriptFileEncoding { get; set; }
@@ -141,6 +156,8 @@ namespace JSmith.MSBuild.Tasks.Flex
         {
             CommandLineBuilder clb = new CommandLineBuilder();
 
+            CreateLinkReportTaskItem();
+
             if (Version != null)
                 CreateVersionInfo();
 
@@ -182,9 +199,13 @@ namespace JSmith.MSBuild.Tasks.Flex
                     clb.AppendSwitchIfNotNull("-library-path+=", LibraryPath[i]);
 
             clb.AppendSwitchIfNotNull("-license ", License);
-            clb.AppendSwitchIfNotNull("-link-report ", LinkReport);
+            clb.AppendSwitchIfNotNull("-link-report=", LinkReport);
             clb.AppendSwitchIfNotNull("-load-config ", LoadConfig);
-            clb.AppendSwitchIfNotNull("-load-externs ", LoadExterns, " ");
+
+            if (LoadExterns != null)
+                for (int i = 0; i < LoadExterns.Length; i++)
+                    clb.AppendSwitchIfNotNull("-load-externs=", LoadExterns[i]);
+
             clb.AppendSwitchIfNotNull("-locale ", Locale);
             clb.AppendSwitchIfNotNull("-optimize=", Optimize);
 
@@ -221,7 +242,7 @@ namespace JSmith.MSBuild.Tasks.Flex
             clb.AppendSwitchIfNotNull("-warnings=", Warnings);
 
             clb.AppendSwitchIfNotNull("-file-specs ", EntryPoint);
-           
+
             Console.WriteLine(GenerateFullPathToTool() + " " + clb);
 
             return clb.ToString();
@@ -257,6 +278,15 @@ namespace JSmith.MSBuild.Tasks.Flex
         #endregion
 
         #endregion
+
+        private void CreateLinkReportTaskItem()
+        {
+            if (!GenerateLinkReport)
+                return;
+
+            LinkReport = new TaskItem(LinkReportPath);
+
+        }//end method
 
         private void CreateVersionInfo()
         {
